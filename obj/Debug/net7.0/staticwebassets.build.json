@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "qqZQ0R0cF9FMoClblaTQkcdULKCSjCNvwAa3qICZC2g=",
+  "Source": "TurnoMedicoBackend",
+  "BasePath": "_content/TurnoMedicoBackend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
