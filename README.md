@@ -15,7 +15,11 @@ Este es el backend del sistema de gestión de turnos médicos desarrollado con *
   - Listar todos los turnos
   - Buscar turnos por paciente
   - Eliminar turno
-- Documentación interactiva con **Swagger**
+- Registro de pacientes con **encriptación de contraseñas** (BCrypt)
+- Login de pacientes con **generación de JWT**
+- Validación de rutas protegidas mediante token
+- Endpoint protegido para obtener datos del paciente autenticado
+- Documentación y pruebas con **Swagger**
 
 ---
 
@@ -23,28 +27,20 @@ Este es el backend del sistema de gestión de turnos médicos desarrollado con *
 
 - ASP.NET Core 7
 - MongoDB + MongoDB.Driver
-- Swagger para pruebas de endpoints
+- JWT (Json Web Tokens)
+- BCrypt.Net-Next
+- Swagger (Swashbuckle)
 - GitHub para control de versiones
 
 ---
 
-## 🧪 Cómo correr el backend
+📌 Próximas tareas a implementar
+CRUD para profesionales
 
-```bash
-dotnet build
-dotnet run
+Validación de disponibilidad de turnos
 
-Próximas tareas a implementar
- Agregar login y registro con encriptación de contraseñas
+Roles y permisos (paciente / profesional)
 
- Autenticación con JWT
+Conexión con el frontend (React)
 
- CRUD para profesionales
-
- Validación de disponibilidad de turnos
-
- Roles y permisos (paciente / profesional)
-
- Conexión con el frontend (React)
-
- Crear entorno de despliegue (Render / Railway)
+Crear entorno de despliegue (Render / Railway)

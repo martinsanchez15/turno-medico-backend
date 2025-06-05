@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using TurnoMedicoBackend.Models;
-using TurnoMedicoBackend.Configurations;
+using TurnoMedicoBackend.Settings;
 using BCrypt.Net; // Necesario para encriptación
 
 namespace TurnoMedicoBackend.Services

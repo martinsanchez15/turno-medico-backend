@@ -1,4 +1,4 @@
-namespace TurnoMedicoBackend.Configurations
+namespace TurnoMedicoBackend.Settings
 {
     public class MongoDBSettings
     {
