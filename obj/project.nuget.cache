@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "GyFGabnwf+33ig2Y0+QRrVE6Ll7hcl7PfIhCOHsTNx9VT42wmnMBuHEiccetZ+zUxs4SzwmisFuH9R7r3KhhKQ==",
+  "dgSpecHash": "fjdCasePq1UazNJ5jO6QkWkLZVHu6jyGHLOBDhWia6+NFHKWcoYEsaSzIKUo5YW8QqCpmOqWI3UrC6y+J8dU2Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\marti\\Desktop\\TurnoMedicoBackend\\TurnoMedicoBackend\\TurnoMedicoBackend.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\marti\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\marti\\.nuget\\packages\\dnsclient\\1.6.1\\dnsclient.1.6.1.nupkg.sha512",
     "C:\\Users\\marti\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.20\\microsoft.aspnetcore.openapi.7.0.20.nupkg.sha512",
     "C:\\Users\\marti\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",

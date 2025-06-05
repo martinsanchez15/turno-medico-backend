@@ -62,5 +62,22 @@ namespace TurnoMedicoBackend.Controllers
             await _pacienteService.DeleteAsync(id);
             return NoContent();
         }
+
+        // ✅ Nuevo endpoint: login de paciente
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        {
+            var paciente = await _pacienteService.LoginAsync(request.Email, request.Password);
+            if (paciente == null)
+                return Unauthorized("Credenciales inválidas");
+
+            return Ok(new
+            {
+                paciente.Id,
+                paciente.Nombre,
+                paciente.Email
+                // Más adelante: acá se devolvería el JWT
+            });
+        }
     }
 }

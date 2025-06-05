@@ -37,3 +37,4 @@ C:\Users\marti\Desktop\TurnoMedicoBackend\TurnoMedicoBackend\obj\Debug\net7.0\re
 C:\Users\marti\Desktop\TurnoMedicoBackend\TurnoMedicoBackend\obj\Debug\net7.0\TurnoMedicoBackend.pdb
 C:\Users\marti\Desktop\TurnoMedicoBackend\TurnoMedicoBackend\obj\Debug\net7.0\TurnoMedicoBackend.genruntimeconfig.cache
 C:\Users\marti\Desktop\TurnoMedicoBackend\TurnoMedicoBackend\obj\Debug\net7.0\ref\TurnoMedicoBackend.dll
+C:\Users\marti\Desktop\TurnoMedicoBackend\TurnoMedicoBackend\bin\Debug\net7.0\BCrypt.Net-Next.dll
