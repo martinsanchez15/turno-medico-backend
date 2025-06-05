@@ -26,8 +26,9 @@ namespace TurnoMedicoBackend.Controllers
 
         [HttpGet]
         public async Task<ActionResult<List<Paciente>>> Get() =>
-            await _pacienteService.GetAsync();
+                    await _pacienteService.GetAsync();
 
+        [Authorize(Roles = "Paciente")]
         [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<Paciente>> Get(string id)
         {
@@ -106,7 +107,7 @@ namespace TurnoMedicoBackend.Controllers
         }
 
         // 🔒 Endpoint protegido
-        [Authorize]
+        [Authorize(Roles = "Paciente")]
         [HttpGet("perfil")]
         public IActionResult Perfil()
         {

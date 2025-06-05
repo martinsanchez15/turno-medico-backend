@@ -77,6 +77,8 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSingleton<PacienteService>();
 builder.Services.AddSingleton<TurnoService>();
+builder.Services.AddSingleton<ProfesionalService>();
+
 
 var app = builder.Build();
 

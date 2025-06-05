@@ -20,7 +20,7 @@ Este es el backend del sistema de gestión de turnos médicos desarrollado con *
 - Validación de rutas protegidas mediante token
 - Endpoint protegido para obtener datos del paciente autenticado
 - Documentación y pruebas con **Swagger**
-
+CRUD para profesionales
 ---
 
 ## 🛠️ Tecnologías
@@ -35,7 +35,6 @@ Este es el backend del sistema de gestión de turnos médicos desarrollado con *
 ---
 
 📌 Próximas tareas a implementar
-CRUD para profesionales
 
 Validación de disponibilidad de turnos
 
