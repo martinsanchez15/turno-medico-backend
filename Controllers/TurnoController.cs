@@ -23,6 +23,10 @@ namespace TurnoMedicoBackend.Controllers
         public async Task<ActionResult<List<Turno>>> GetByPaciente(string pacienteId) =>
             await _turnoService.GetByPacienteIdAsync(pacienteId);
 
+        [HttpGet("profesional/{profesionalId}")]
+        public async Task<ActionResult<List<Turno>>> GetByProfesional(string profesionalId) =>
+            await _turnoService.GetByProfesionalIdAsync(profesionalId);
+
         [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<Turno>> Get(string id)
         {
@@ -31,10 +35,15 @@ namespace TurnoMedicoBackend.Controllers
             return turno;
         }
 
+        // ✅ Crear turno SOLO si está disponible (profesional + fecha)
         [HttpPost]
         public async Task<IActionResult> Post(Turno turno)
         {
-            await _turnoService.CreateAsync(turno);
+            var disponible = await _turnoService.CreateIfDisponibleAsync(turno);
+
+            if (!disponible)
+                return Conflict("Ya existe un turno para ese profesional en esa fecha y hora.");
+
             return CreatedAtAction(nameof(Get), new { id = turno.Id }, turno);
         }
 
@@ -49,3 +58,4 @@ namespace TurnoMedicoBackend.Controllers
         }
     }
 }
+

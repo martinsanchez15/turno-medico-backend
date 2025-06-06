@@ -7,13 +7,14 @@ namespace TurnoMedicoBackend.Models
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
+        
         public string? Id { get; set; }
 
         [BsonElement("pacienteId")]
         public string PacienteId { get; set; }
 
-        [BsonElement("profesional")]
-        public string Profesional { get; set; }
+        [BsonElement("profesionalId")]
+        public string ProfesionalId { get; set; } // ✅ Cambiado para que apunte al ID
 
         [BsonElement("especialidad")]
         public string Especialidad { get; set; }

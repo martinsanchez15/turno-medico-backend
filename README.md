@@ -10,17 +10,19 @@ Este es el backend del sistema de gestión de turnos médicos desarrollado con *
 - Configuración centralizada en `appsettings.json`
 - CRUD completo para **pacientes**:
   - Crear, listar, buscar por ID, editar y eliminar
+- CRUD completo para **profesionales** con protección de endpoints
 - CRUD básico para **turnos médicos**:
   - Crear turno
   - Listar todos los turnos
   - Buscar turnos por paciente
   - Eliminar turno
-- Registro de pacientes con **encriptación de contraseñas** (BCrypt)
-- Login de pacientes con **generación de JWT**
-- Validación de rutas protegidas mediante token
-- Endpoint protegido para obtener datos del paciente autenticado
-- Documentación y pruebas con **Swagger**
-CRUD para profesionales
+  - Validación de disponibilidad de turnos (evita turnos duplicados en fecha/hora con el mismo profesional)
+- Registro de pacientes y profesionales con **encriptación de contraseñas** (BCrypt)
+- Login de pacientes y profesionales con **generación de JWT**
+- Validación de rutas protegidas mediante tokens y **roles**
+- Endpoint protegido para obtener datos del usuario autenticado (perfil)
+- Documentación interactiva y pruebas con **Swagger**
+
 ---
 
 ## 🛠️ Tecnologías
@@ -34,12 +36,7 @@ CRUD para profesionales
 
 ---
 
-📌 Próximas tareas a implementar
+## 📌 Próximas tareas a implementar
 
-Validación de disponibilidad de turnos
-
-Roles y permisos (paciente / profesional)
-
-Conexión con el frontend (React)
-
-Crear entorno de despliegue (Render / Railway)
+- Conexión con el frontend (React)
+- Crear entorno de despliegue (Render / Railway)
