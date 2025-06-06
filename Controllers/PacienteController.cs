@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -26,7 +25,7 @@ namespace TurnoMedicoBackend.Controllers
 
         [HttpGet]
         public async Task<ActionResult<List<Paciente>>> Get() =>
-                    await _pacienteService.GetAsync();
+            await _pacienteService.GetAsync();
 
         [Authorize(Roles = "Paciente")]
         [HttpGet("{id:length(24)}")]
@@ -65,48 +64,7 @@ namespace TurnoMedicoBackend.Controllers
             return NoContent();
         }
 
-        // 🔐 Login y generación de token JWT
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest request)
-        {
-            var paciente = await _pacienteService.LoginAsync(request.Email, request.Password);
-            if (paciente == null)
-                return Unauthorized("Credenciales inválidas");
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_jwtSettings.SecretKey);
-
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim(ClaimTypes.NameIdentifier, paciente.Id),
-                    new Claim(ClaimTypes.Email, paciente.Email),
-                    new Claim(ClaimTypes.Name, paciente.Nombre),
-                    new Claim(ClaimTypes.Role, "Paciente")
-                }),
-                Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpirationInMinutes),
-                Issuer = _jwtSettings.Issuer,
-                Audience = _jwtSettings.Audience,
-                SigningCredentials = new SigningCredentials(
-                    new SymmetricSecurityKey(key),
-                    SecurityAlgorithms.HmacSha256Signature
-                )
-            };
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var tokenString = tokenHandler.WriteToken(token);
-
-            return Ok(new
-            {
-                token = tokenString,
-                paciente.Id,
-                paciente.Nombre,
-                paciente.Email
-            });
-        }
-
-        // 🔒 Endpoint protegido
+        // 🔒 Endpoint protegido para ver perfil autenticado
         [Authorize(Roles = "Paciente")]
         [HttpGet("perfil")]
         public IActionResult Perfil()

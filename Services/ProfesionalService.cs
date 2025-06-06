@@ -28,12 +28,10 @@ namespace TurnoMedicoBackend.Services
 
         public async Task CreateAsync(Profesional profesional)
         {
-            // Evitar duplicados
             var existing = await GetByEmailAsync(profesional.Email);
             if (existing != null)
                 throw new Exception("Ya existe un profesional con este email.");
 
-            // Encriptar contraseña
             profesional.Password = BCrypt.Net.BCrypt.HashPassword(profesional.Password);
             await _profesionales.InsertOneAsync(profesional);
         }
@@ -52,5 +50,10 @@ namespace TurnoMedicoBackend.Services
             var valid = BCrypt.Net.BCrypt.Verify(password, profesional.Password);
             return valid ? profesional : null;
         }
+
+        // ✅ Método adicional compatible con AuthController
+        public async Task<Profesional?> BuscarPorEmailAsync(string email) =>
+            await _profesionales.Find(p => p.Email == email).FirstOrDefaultAsync();
     }
 }
+

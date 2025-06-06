@@ -41,6 +41,17 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Configurar CORS para permitir el frontend
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PermitirFrontend", policy =>
+    {
+        policy.WithOrigins("http://localhost:3000") // dirección de React
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 // Swagger con soporte JWT
 builder.Services.AddSwaggerGen(options =>
 {
@@ -79,7 +90,6 @@ builder.Services.AddSingleton<PacienteService>();
 builder.Services.AddSingleton<TurnoService>();
 builder.Services.AddSingleton<ProfesionalService>();
 
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -90,7 +100,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// 🔐 Middleware de autenticación y autorización
+// Activar CORS antes de autenticación
+app.UseCors("PermitirFrontend");
+
 app.UseAuthentication();
 app.UseAuthorization();
 

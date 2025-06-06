@@ -68,44 +68,6 @@ namespace TurnoMedicoBackend.Controllers
             return NoContent();
         }
 
-        // 🔐 Login con JWT
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest request)
-        {
-            var profesional = await _profesionalService.LoginAsync(request.Email, request.Password);
-            if (profesional == null)
-                return Unauthorized("Credenciales inválidas");
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_jwtSettings.SecretKey);
-
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new[]
-                {
-                    new Claim(ClaimTypes.NameIdentifier, profesional.Id),
-                    new Claim(ClaimTypes.Email, profesional.Email),
-                    new Claim(ClaimTypes.Name, profesional.Nombre),
-                    new Claim(ClaimTypes.Role, "Profesional")
-                }),
-                Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpirationInMinutes),
-                Issuer = _jwtSettings.Issuer,
-                Audience = _jwtSettings.Audience,
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var tokenString = tokenHandler.WriteToken(token);
-
-            return Ok(new
-            {
-                token = tokenString,
-                profesional.Id,
-                profesional.Nombre,
-                profesional.Email
-            });
-        }
-
         // 🔒 Endpoint protegido con rol Profesional
         [Authorize(Roles = "Profesional")]
         [HttpGet("perfil")]

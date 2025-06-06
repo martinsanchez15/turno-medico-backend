@@ -2,7 +2,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using TurnoMedicoBackend.Models;
 using TurnoMedicoBackend.Settings;
-using BCrypt.Net; // Necesario para encriptación
+using BCrypt.Net;
 
 namespace TurnoMedicoBackend.Services
 {
@@ -45,5 +45,9 @@ namespace TurnoMedicoBackend.Services
             bool isValid = BCrypt.Net.BCrypt.Verify(password, paciente.Password);
             return isValid ? paciente : null;
         }
+
+        // ✅ Método para búsqueda por email (usado por AuthController)
+        public async Task<Paciente?> BuscarPorEmailAsync(string email) =>
+            await _pacientes.Find(p => p.Email == email).FirstOrDefaultAsync();
     }
 }
