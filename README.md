@@ -1,6 +1,6 @@
 # 🩺 Turno Médico Backend
 
-Este es el backend del sistema de gestión de turnos médicos desarrollado con **C# (.NET Core)** y **MongoDB**. Forma parte del proyecto final de la Tecnicatura en Desarrollo y Calidad de Software (UNSTA).
+Este es el backend del sistema de gestión de turnos médicos desarrollado con **C# (.NET Core)** y **MongoDB**. Forma parte del proyecto final de la Tecnicatura en Desarrollo y Calidad de Software (UNSTA), dentro del proyecto de migración a **arquitectura REST**.
 
 ---
 
@@ -13,23 +13,21 @@ Este es el backend del sistema de gestión de turnos médicos desarrollado con *
 - CRUD completo para **profesionales**:
   - Crear, listar, buscar por ID, editar y eliminar
   - Validación de email único
-- CRUD básico para **turnos médicos**:
+- CRUD para **turnos médicos**:
   - Crear turno
-  - Listar todos los turnos
-  - Buscar turnos por paciente
+  - Listar turnos
+  - Buscar por paciente o profesional
   - Eliminar turno
-  - Validación de disponibilidad (no se permiten turnos duplicados en fecha/hora para un profesional)
-- Registro de pacientes y profesionales con:
-  - **Encriptación de contraseñas** usando BCrypt
-  - **Validación de email** para evitar duplicados
-- Login para pacientes y profesionales con:
+  - Validación de disponibilidad
+- Registro y login para pacientes y profesionales:
+  - **Encriptación de contraseñas** con BCrypt
+  - **Validación de email**
   - **Verificación de contraseña**
-  - **Generación de JWT** con Claims personalizados
-- Rutas protegidas mediante autenticación **JWT**
-- Control de acceso mediante **roles** (Paciente / Profesional)
-- Endpoints protegidos para obtener el perfil del usuario autenticado (`/api/paciente/perfil` y `/api/profesional/perfil`)
-- Permite probar todas las rutas desde **Swagger UI**
-- Soporte de CORS habilitado para permitir conexión con frontend React
+  - **Generación de JWT** con `id`, `email`, `nombre`, `rol`
+- Protección de rutas con **autenticación JWT**
+- Control de acceso con **roles**
+- Soporte de CORS para conexión con React
+- Pruebas disponibles en **Swagger UI**
 
 ---
 
@@ -38,22 +36,25 @@ Este es el backend del sistema de gestión de turnos médicos desarrollado con *
 - ASP.NET Core 7
 - MongoDB + MongoDB.Driver
 - JWT (Json Web Tokens)
-- BCrypt.Net-Next
-- Swagger (Swashbuckle.AspNetCore)
+- BCrypt.Net
+- Swagger (Swashbuckle)
 - Git + GitHub para control de versiones
 
 ---
 
-## 📌 Próximas Tareas a Implementar
+## 📌 Estado actual
 
-- Conexión completa con el **frontend en React**
-- Agregar validaciones más detalladas en los modelos
-- Crear entorno de despliegue (Render / Railway)
-- Configuración para entornos de producción y testing
+✅ Arquitectura REST funcional y completa.  
+✅ Rutas bien definidas por entidad (`/api/paciente`, `/api/profesional`, `/auth/login`).  
+✅ Separación en capas (Controllers, Services, Models).  
+✅ Datos protegidos y autenticación robusta.
 
 ---
 
-## 🔐 Autenticación y Roles
+## 🚀 Cómo ejecutar
 
-Los usuarios (pacientes y profesionales) pueden autenticarse vía `/auth/login`, y obtendrán un token JWT. Este token debe incluirse en el header `Authorization` como:
-
+1. Configurar MongoDB local o en la nube.
+2. Actualizar `appsettings.json` con tu cadena de conexión.
+3. Ejecutar el proyecto:
+   ```bash
+   dotnet run

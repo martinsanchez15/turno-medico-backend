@@ -7,6 +7,7 @@ using System.Text;
 using TurnoMedicoBackend.Models;
 using TurnoMedicoBackend.Services;
 using TurnoMedicoBackend.Settings;
+using BCrypt.Net;
 
 namespace TurnoMedicoBackend.Controllers
 {
@@ -30,10 +31,12 @@ namespace TurnoMedicoBackend.Controllers
         {
             object usuario = null;
             string rol = null;
+            string nombre = null;
+            string id = null;
 
-            // Intentar login como paciente
-            var paciente = await _pacienteService.LoginAsync(request.Email, request.Password);
-            if (paciente != null)
+            // Buscar paciente
+            var paciente = await _pacienteService.BuscarPorEmailAsync(request.Email);
+            if (paciente != null && BCrypt.Net.BCrypt.Verify(request.Password, paciente.Password))
             {
                 usuario = new
                 {
@@ -43,20 +46,27 @@ namespace TurnoMedicoBackend.Controllers
                     Rol = "paciente"
                 };
                 rol = "paciente";
+                nombre = paciente.Nombre;
+                id = paciente.Id;
             }
 
-            // Intentar login como profesional
-            var profesional = await _profesionalService.LoginAsync(request.Email, request.Password);
-            if (profesional != null)
+            // Buscar profesional
+            if (usuario == null)
             {
-                usuario = new
+                var profesional = await _profesionalService.BuscarPorEmailAsync(request.Email);
+                if (profesional != null && BCrypt.Net.BCrypt.Verify(request.Password, profesional.Password))
                 {
-                    profesional.Id,
-                    profesional.Nombre,
-                    profesional.Email,
-                    Rol = "profesional"
-                };
-                rol = "profesional";
+                    usuario = new
+                    {
+                        profesional.Id,
+                        profesional.Nombre,
+                        profesional.Email,
+                        Rol = "profesional"
+                    };
+                    rol = "profesional";
+                    nombre = profesional.Nombre;
+                    id = profesional.Id;
+                }
             }
 
             if (usuario == null)
@@ -64,15 +74,17 @@ namespace TurnoMedicoBackend.Controllers
                 return Unauthorized(new { mensaje = "Email o contraseña incorrectos" });
             }
 
-            var token = GenerarToken(request.Email, rol);
+            var token = GenerarToken(id, request.Email, nombre, rol);
             return Ok(new { token, usuario });
         }
 
-        private string GenerarToken(string email, string rol)
+        private string GenerarToken(string id, string email, string nombre, string rol)
         {
             var claims = new[]
             {
+                new Claim("id", id),
                 new Claim(ClaimTypes.Email, email),
+                new Claim("nombre", nombre),
                 new Claim(ClaimTypes.Role, rol)
             };
 
